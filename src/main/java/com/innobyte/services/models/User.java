@@ -1,5 +1,7 @@
 package com.innobyte.services.models;
 
+import com.innobyte.services.enums.UserRole;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +16,10 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
-	private String userName;
+	private Long id;
+	private String email;
 	private String password;
-	private String userEmailId;
-	private String userAddress;
+	private String name;
+	private String address;
+	private UserRole role;
 }
