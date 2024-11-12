@@ -1,5 +1,4 @@
 package com.innobyte.services.config;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
-
 	@Value("${app.client.url}")
 	private String clientAppUrl = "";
 	
@@ -44,5 +42,4 @@ public class SimpleCorsFilter implements Filter {
 			chain.doFilter(req, res);
 		}
 	}
-
 }

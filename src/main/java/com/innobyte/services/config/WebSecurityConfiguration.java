@@ -20,15 +20,14 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
-
-	private final JwtRequestFilter authFilter;
+private final JwtRequestFilter authFilter;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf()
 				.disable()
 				.authorizeHttpRequests()
-				.requestMatchers("/authenticate","/sign-up","/order/**")
+				.requestMatchers("/users/**","/admin/**","/product/**","/order/**")
 				.permitAll()
 				.and()
 				.authorizeHttpRequests()
@@ -51,5 +50,4 @@ public class WebSecurityConfiguration {
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
-	
 }
