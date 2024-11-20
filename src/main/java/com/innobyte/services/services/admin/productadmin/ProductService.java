@@ -3,6 +3,7 @@ package com.innobyte.services.services.admin.productadmin;
 import java.util.List;
 import java.io.IOException;
 import com.innobyte.services.dto.ProductDto;
+import com.innobyte.services.dto.WishlistDto;
 import com.innobyte.services.models.Product;
 
 public interface ProductService {
@@ -13,7 +14,7 @@ public interface ProductService {
 
 	public void deleteProductById(Long productId);
 
-	public List<Product> getAllProduct();
+	public List<ProductDto> getAllProduct();
 
 	public ProductDto getProductById(Long productId);
 
@@ -24,5 +25,7 @@ public interface ProductService {
 	public List<Product> searchProductByTitle(String name);
 
 	public List<Product> getAllProductByName(String name);
+
+//	public WishlistDto addProductToWishlist(WishlistDto wishlistDto);
 
 }

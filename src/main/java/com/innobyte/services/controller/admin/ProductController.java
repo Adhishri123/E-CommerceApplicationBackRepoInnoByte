@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.innobyte.services.dto.ProductDto;
+import com.innobyte.services.dto.WishlistDto;
 import com.innobyte.services.models.Product;
 import com.innobyte.services.services.admin.productadmin.ProductService;
 import java.io.IOException;
@@ -31,9 +33,9 @@ public class ProductController {
 	}
 
 	@GetMapping("/get_all_product")
-	public ResponseEntity<List<Product>> getAllProducts() {
-		List<Product> products = productService.getAllProduct();
-		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+	public ResponseEntity<List<ProductDto>> getAllProducts() {
+		List<ProductDto> products = productService.getAllProduct();
+		return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 	}
 
 	@GetMapping("/search/{name}")
@@ -73,4 +75,13 @@ public class ProductController {
 		List<Product> productdtos = productService.searchProductByTitle(name);
 		return new ResponseEntity<List<Product>>(productdtos, HttpStatus.OK);
 	}
+	
+//	@PostMapping("/add_product_towishlist")
+//	public ResponseEntity<?> addProductsToWishlist(@RequestBody WishlistDto wishlistDto) {
+//		WishlistDto addToWishlistDto = productService.addProductToWishlist(wishlistDto);
+//		if(addToWishlistDto == null) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+//		}
+//		return ResponseEntity.status(HttpStatus.CREATED).body(addToWishlistDto);
+//	}
 }

@@ -1,5 +1,7 @@
 package com.innobyte.services.models;
 
+import com.innobyte.services.dto.ProductDto;
+import com.innobyte.services.dto.UserDto;
 import com.innobyte.services.enums.UserRole;
 
 import jakarta.persistence.Entity;
@@ -22,4 +24,14 @@ public class User {
 	private String name;
 	private String address;
 	private UserRole role;
+	
+	public UserDto getDto() {
+		UserDto userDto = new UserDto();
+		userDto.setId(id);
+		userDto.setName(name);
+		userDto.setEmail(email);
+		userDto.setAddress(address);
+		
+		return userDto;
+	}
 }

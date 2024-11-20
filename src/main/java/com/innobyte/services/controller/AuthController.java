@@ -10,15 +10,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.innobyte.services.dto.AuthenticationRequest;
+import com.innobyte.services.dto.ProductDto;
 import com.innobyte.services.dto.SignupRequest;
 import com.innobyte.services.dto.UserDto;
 import com.innobyte.services.models.User;
@@ -32,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-//@CrossOrigin("*")
 public class AuthController {
 
 	private final AuthenticationManager authenticationManager;
@@ -74,4 +78,36 @@ public class AuthController {
 		UserDto userDto = authService.createUser(signupRequest);
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
 	}
+	
+	@GetMapping("/profile")
+    public ResponseEntity<UserDto> getUserProfile(@AuthenticationPrincipal UserDetails userDetails) {
+		if (userDetails == null) {
+	        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	    }
+        // Call the service to get the user profile
+		UserDto userdto = authService.getUserProfile(userDetails);
+		return new ResponseEntity<>(userdto,HttpStatus.OK);
+    }
+	
+//	@GetMapping("/profile")
+//    public ResponseEntity<User> getUserProfile(@RequestHeader("Authorization") String token) {
+//		String email = jwtUtil.extractUsername(token.substring(6));
+//        // Extract the user profile using the token
+//        User user = authService.getUserProfile(email);
+//
+//        // Return the user profile data
+//        return ResponseEntity.ok(user);
+//    }
+	
+//	@GetMapping("/get_user_byid/{id}")
+//	public ResponseEntity<UserDto> getUsersById(@PathVariable("id") Long id) {
+//		UserDto productdto = authService.getUserById(id);
+//		return new ResponseEntity<UserDto>(productdto, HttpStatus.OK);
+//	}
+		
+//	@PutMapping("/update_user/{userId}")
+//	public ResponseEntity<User> updateUserDetails(@PathVariable("userId") long userid, @RequestBody User userdetails) {
+//		User user = userservice.addUserData(userdetails);
+//		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
+//	}
 }
